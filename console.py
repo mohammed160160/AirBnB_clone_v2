@@ -118,6 +118,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
+        
         """ Tokenize args"""
         class_name, *params = args.split()
         if class_name not in HBNBCommand.classes:
@@ -126,17 +127,17 @@ class HBNBCommand(cmd.Cmd):
         param = {}
         for paramarr in params:
             key, value = paramarr.split('=')
-            value = value.replace('_', ' ')('\\"', '"')
-        """ Handle string value """
+            value = value.replace('_', ' ').replace('\\"', '"')
+            """ Handle string value """
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1]
-        """ Handle float """
+            """ Handle float """
             elif '.' in value:
                 try:
                     value = float(value)
                 except ValueError:
                     continue
-        """ Handle int """ 
+            """ Handle int """ 
             else:
                 try:
                     value = int(value)
