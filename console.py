@@ -115,41 +115,38 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not args:
+        try:
+            class_name = args.split(" ")[0]
+        except IndexError:
+            pass
+        if not class_name:
             print("** class name missing **")
             return
-        
-        """ Tokenize args"""
-        class_name, *params = args.split()
-        if class_name not in HBNBCommand.classes:
+        elif class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        param = {}
-        for paramarr in params:
-            key, value = paramarr.split('=')
-            value = value.replace('_', ' ').replace('\\"', '"')
 
+        """ Tokenize args"""
+        all_param = args.split(" ")
+
+        new_instance = eval(class_name)()
+
+        for i in range(1, len(all_param)):
+            key, value = tuple(all_param[i].split('='))
             if value.startswith('"') and value.endswith('"'):
-                value = value[1:-1]
-
-            elif '.' in value:
-                try:
-                    value = float(value)
-                except ValueError:
-                    continue
-
+                value = value.strip('"').replace("_", " ")
             else:
                 try:
-                    value = int(value)
-                except ValueError:
-                    continue
-            param[key] = value
-
-        """ Create an instance with parameters"""
-        new_instance = HBNBCommand.classes[class_name](**param)
-        storage.save()
+                    value = eval(value)
+                except Exception:
+                    print(f"** couldnt evaluate {value}")
+                    pass
+            if hasattr(new_instance, key):
+                setattr(new_instance, key, value)
+        """ Save Instance"""
+        storage.new(new_instance)
         print(new_instance.id)
-        storage.save()
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
