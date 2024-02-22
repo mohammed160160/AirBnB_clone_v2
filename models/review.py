@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Review module for the HBNB project """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 
 class Review(BaseModel, Base):
@@ -14,17 +14,3 @@ class Review(BaseModel, Base):
         """initialize class instance"""
         super().__init__(*args, **kwargs)
 
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        reviews = relationship('Review', backref='place',
-                               cascade='all, delete')
-    else:
-        @property
-        def reviews(self):
-            """Review setter"""
-            from models import storage
-            review_obj = storage.all('Review')
-            ret = []
-            for key, value in review_obj.items():
-                if self.id == value.place_id:
-                    ret.append(value)
-            return ret
