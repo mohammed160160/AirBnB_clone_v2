@@ -41,7 +41,6 @@ class DBStorage:
         Queries the current db session for all objects
         depending on the classname argument cls
         """
-        self.__session.query()
         objs = []
         obj_dict = {}
         if cls is not None:

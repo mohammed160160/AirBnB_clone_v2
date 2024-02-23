@@ -65,5 +65,6 @@ class FileStorage:
         try:
             key = "{}.{}".format(type(obj).__name__ , obj.id)
             del self.__objects[key]
+            self.save()
         except (AttributeError, KeyError):
             pass
