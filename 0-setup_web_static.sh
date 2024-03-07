@@ -10,7 +10,13 @@ sudo service nginx start
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/releases/test/
-echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html > /dev/null
+echo "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # set permissions
