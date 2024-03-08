@@ -17,15 +17,14 @@ def do_pack():
     # Get current time
     pathnow = datetime.now()
     pathnow = pathnow.strftime('%Y%m%d%H%M%S')
+    local('mkdir -p versions/')
     archive_path = 'versions/web_static_' + pathnow + '.tgz'
 
     # Create archive
-    local('mkdir -p versions/')
     result = local('tar -cvzf {} web_static/'.format(archive_path))
 
     # Check if archiving was successful
     if not result.failed:
-        print(f"{archive_path}")
         return archive_path
     else:
         return None
