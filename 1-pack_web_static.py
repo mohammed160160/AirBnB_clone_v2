@@ -6,7 +6,7 @@ repo, using the function do_pack.
 """
 
 
-from fabric.api import local
+from fabric.api import *
 import os
 from datetime import datetime
 
@@ -24,6 +24,8 @@ def do_pack():
     result = local('tar -cvzf {} web_static/'.format(archive_path))
 
     # Check if archiving was successful
-    if result.succeeded:
+    if not result.failed:
+        print(f"{archive_path}")
         return archive_path
-    return None
+    else:
+        return None
