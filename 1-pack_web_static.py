@@ -5,7 +5,6 @@ the files of the web_static folder of AIrBnB-clone_v2
 repo, using the function do_pack.
 """
 
-
 from fabric.api import *
 import os
 from datetime import datetime
@@ -21,12 +20,14 @@ def do_pack():
     archive_path = 'versions/web_static_' + pathnow + '.tgz'
 
     # Create archive
-    result = local('tar -cvzf {} web_static/'.format(archive_path))
+    result = local('tar -cvzf {} web_static/'.format(archive_path), capture=True)
 
     # Check if archiving was successful
     if not result.failed:
-        file_size = os.path.getsize(result)
-        print(f'versions/web_static_{result}.tgz -> {file_size}')
+        # Use stdout to get the actual output of the command
+        file_size = os.path.getsize(result.stdout.strip())
+        print(f'{archive_path} -> {file_size} bytes')
         return archive_path
     else:
         return None
+
