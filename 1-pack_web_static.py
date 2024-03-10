@@ -25,6 +25,8 @@ def do_pack():
 
     # Check if archiving was successful
     if not result.failed:
+        file_size = os.path.getsize(result)
+        print(f'versions/web_static_{result}.tgz -> {file_size}')
         return archive_path
     else:
         return None
