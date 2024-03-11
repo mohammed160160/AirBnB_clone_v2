@@ -20,12 +20,12 @@ def do_pack():
     archive_path = 'versions/web_static_' + pathnow + '.tgz'
 
     # Create archive
-    result = local('tar -cvzf {} web_static/'.format(archive_path), capture=True)
+    result = local('tar -cvzf {} web_static/'.format(archive_path))
 
     # Check if archiving was successful
     if not result.failed:
         # Use stdout to get the actual output of the command
-        file_size = os.path.getsize(result.stdout.strip())
+        file_size = os.path.getsize(archive_path)
         print(f'{archive_path} -> {file_size} bytes')
         return archive_path
     else:
