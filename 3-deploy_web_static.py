@@ -54,7 +54,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """Creates and Distributes a .tgz archive through web servers
+    """
+    Creates and Distributes a .tgz archive through web servers
     """
 
     archive = do_pack()
