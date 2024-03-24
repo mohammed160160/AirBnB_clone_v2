@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-"""Fabric script generate a .tgz archive from contents of web_static folder"""
+"""Fabric script that distributes archive web servers using do_deploy:"""
 
-from fabric.api import local
+from fabric.api import *
 import os
 
 
