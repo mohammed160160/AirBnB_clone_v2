@@ -3,12 +3,26 @@
 
 from fabric.api import *
 import os
+from datetime import datetime
 
 
 env.hosts = ['100.26.159.135', '54.157.147.219']
 
-Packing = __import__('1-pack_web_static.py').do_pack
-Path = Packing()
+
+def do_pack():
+    """generate a .tgz archive from contents of web_static folder"""
+
+    local('mkdir -p versions/')
+
+    Current = datetime.now()
+    Time = ""
+    Time += "{}{}{}".format(Current.year, Current.month, Current.day)
+    Time += "{}{}{}".format(Current.hour, Current.minute, Current.second)
+
+    file_name = "versions/web_static_{}.tgz".format(Time)
+
+    local('tar -cvzf {} web_static/'.format(file_name))
+    return file_name
 
 
 def do_deploy(archive_path):
@@ -41,5 +55,5 @@ def do_deploy(archive_path):
 def deploy():
     """distributes an archive to your web servers, using do_deploy"""
 
-    Path = Packing()
+    Path = do_pack()
     return do_deploy(Path)
