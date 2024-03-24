@@ -28,7 +28,7 @@ def do_pack():
 def do_deploy(archive_path):
     """Deploys a web_static into an IP after being called by deploy"""
 
-    if path.exists(archive_path):
+    if os.path.exists(archive_path):
 
         put(archive_path, '/tmp/')
 
