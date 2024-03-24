@@ -8,10 +8,11 @@ import os
 env.hosts = [100.26.159.135, 54.157.147.219]
 
 Packing = __import__('1-pack_web_static.py').do_pack
+Path = Packing()
 
 
 def do_deploy(archive_path):
-    """Deploys a web_static into an IP"""
+    """Deploys a web_static into an IP after being called by deploy"""
 
     if path.exists(archive_path):
 
@@ -38,7 +39,7 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """Deploys the .tgz"""
+    """distributes an archive to your web servers, using do_deploy"""
 
     Path = Packing()
     return do_deploy(Path)
