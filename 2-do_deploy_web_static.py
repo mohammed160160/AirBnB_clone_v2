@@ -5,7 +5,7 @@ from fabric.api import *
 import os
 
 
-env.hosts = [100.26.159.135, 54.157.147.219]
+env.hosts = ['100.26.159.135', '54.157.147.219']
 
 Packing = __import__('1-pack_web_static.py').do_pack
 Path = Packing()
