@@ -33,7 +33,7 @@ def do_deploy(archive_path):
         put(archive_path, '/tmp/')
 
         archive_name = archive_path.split('/')[-1]
-        archive = file_name.split('.')[0]
+        archive = archive_name.split('.')[0]
         folder_name = '/data/web_static/releases/{}'.format(archive)
 
         run('mkdir -p {}'.format(folder_name))
