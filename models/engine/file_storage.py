@@ -17,7 +17,7 @@ class FileStorage:
         """
         if cls != None:
             if type(cls) == str:
-                cls = eval(sls)
+                cls = eval(cls)
             cls_dict = {}
             for key, value in self.__objects.items():
                 if type(value) == cls:
